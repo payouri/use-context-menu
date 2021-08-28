@@ -1,6 +1,10 @@
 {
   "scripts": {
-    "lint": "eslint . --ext .ts --fix"
+    "build": "tsc",
+    "clean": "rm -rf ./dist",
+    "lint": "eslint . --ext .ts --fix",
+    "prepare-publish": "npm run clean && npm run lint && npm run build",
+    "publish-package": "npm run prepare-publish && npm version patch --force && npm publish --access public"
   },
   "devDependencies": {
     "@types/react": "^17.0.19",
@@ -17,6 +21,25 @@
     "react": "^17.0.2"
   },
   "peerDependencies": {
-    "react": "^17.0.2"
-  }
+    "react": "^17.0.0"
+  },
+  "name": "@youri-kane/use-context-menu",
+  "description": "Custom hook inspired by react-use-context-menu but written in typescript",
+  "version": "0.2.0",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/payouri/use-context-menu.git"
+  },
+  "keywords": [
+    "react",
+    "hook",
+    "context-menu"
+  ],
+  "author": "Youri Pailloux",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/payouri/use-context-menu/issues"
+  },
+  "homepage": "https://github.com/payouri/use-context-menu#readme"
 }
