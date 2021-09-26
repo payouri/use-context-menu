@@ -7,7 +7,7 @@ export * from './initialState';
 
 export const contextMenuReducer: Reducer<ReducerState, Actions> = (
   state,
-  action,
+  action
 ) => {
   switch (action.type) {
     case 'setIsVisible':

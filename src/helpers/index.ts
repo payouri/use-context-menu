@@ -11,7 +11,7 @@ export function focusElement<E extends HTMLElement = HTMLElement>(el: E): void {
 
 export function getElementAt<T extends unknown[] = unknown[]>(
   iterable: T,
-  n: number,
+  n: number
 ): T[number] | undefined {
   if (iterable.length === 0) {
     return undefined;
