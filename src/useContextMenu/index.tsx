@@ -155,9 +155,14 @@ export function useContextMenu<
         },
       });
     } else {
+      const { transform } = style;
+
       dispatch({
         type: 'setStyle',
-        payload: baseStyles,
+        payload: {
+          ...baseStyles,
+          ...(transform ? { transform } : {}),
+        },
       });
     }
   }, [menuRef, isVisible, coordinates, rtl]);
