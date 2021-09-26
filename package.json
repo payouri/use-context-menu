@@ -27,7 +27,7 @@
   },
   "name": "@youri-kane/use-context-menu",
   "description": "Custom hook inspired by react-use-context-menu but written in typescript",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
