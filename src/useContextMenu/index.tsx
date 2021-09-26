@@ -141,10 +141,7 @@ export function useContextMenu<
   ]);
 
   useEffect(() => {
-    console.log(menuRef.current);
-    if (isVisible) {
-      if (!menuRef.current) return;
-
+    if (isVisible && menuRef.current) {
       const rect = menuRef.current.getBoundingClientRect();
       const { top, left } = rtl
         ? getRTLMenuPosition(rect, coordinates)

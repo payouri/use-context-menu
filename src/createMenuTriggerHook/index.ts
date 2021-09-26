@@ -1,6 +1,4 @@
-import {
-  useRef, useCallback, MouseEvent, TouchEvent,
-} from 'react';
+import { useRef, useCallback, MouseEvent, TouchEvent } from 'react';
 import { MouseButton } from '../enums';
 import { getCoordinates, isNumber } from '../helpers';
 import { ContextTriggerConfig, Coordinates } from '../types';
@@ -9,10 +7,10 @@ import { TriggerBind, UseMenuTriggerHook } from './types';
 
 export * from './types';
 export function buildMenuTriggerHook(
-  triggerVisible: (coords: Coordinates, data: unknown) => void,
+  triggerVisible: (coords: Coordinates, data: unknown) => void
 ) {
   return (
-    triggerConfig: Partial<ContextTriggerConfig> = {},
+    triggerConfig: Partial<ContextTriggerConfig> = {}
   ): UseMenuTriggerHook => {
     const config = { ...defaultConfig, ...triggerConfig };
     const holdToDisplay = {
@@ -34,29 +32,29 @@ export function buildMenuTriggerHook(
         event.stopPropagation();
         triggerVisible(
           getCoordinates(event, [config.posX, config.posY]),
-          config.collect(),
+          config.collect()
         );
       },
-      [config],
+      [config]
     );
 
     const handleMouseDown = useCallback(
       (event: MouseEvent) => {
         if (
-          isNumber(holdToDisplay.mouse)
-          && holdToDisplay.mouse >= 0
-          && event.button === MouseButton.LEFT
+          isNumber(holdToDisplay.mouse) &&
+          holdToDisplay.mouse >= 0 &&
+          event.button === MouseButton.LEFT
         ) {
           event.persist();
           event.stopPropagation();
 
           mouseDownTimeoutId.current = setTimeout(
             () => handleContextClick(event),
-            holdToDisplay.mouse,
+            holdToDisplay.mouse
           );
         }
       },
-      [holdToDisplay, handleContextClick],
+      [holdToDisplay, handleContextClick]
     );
 
     const handleMouseUp = useCallback((event: MouseEvent) => {
@@ -79,7 +77,7 @@ export function buildMenuTriggerHook(
           }, holdToDisplay.touch);
         }
       },
-      [handleContextClick, holdToDisplay.touch],
+      [handleContextClick, holdToDisplay.touch]
     );
 
     const handleTouchEnd = useCallback((event: TouchEvent) => {
@@ -97,7 +95,7 @@ export function buildMenuTriggerHook(
           handleContextClick(event);
         }
       },
-      [handleContextClick, config.disable],
+      [handleContextClick, config.disable]
     );
 
     const triggerProps: TriggerBind = {
