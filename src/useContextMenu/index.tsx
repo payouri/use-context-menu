@@ -1,5 +1,10 @@
 import {
-  SyntheticEvent, useCallback, useEffect, useLayoutEffect, useReducer, useRef,
+  SyntheticEvent,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useReducer,
+  useRef,
 } from 'react';
 import { buildMenuTriggerHook } from '../createMenuTriggerHook';
 import { KeyCodes } from '../enums';
@@ -7,9 +12,12 @@ import { focusElement, getMenuPosition, getRTLMenuPosition } from '../helpers';
 import { contextMenuReducer, initialState } from '../reducer';
 import { Coordinates } from '../types';
 import { baseStyles } from './constants';
-import { UseContextMenuHook as HookShape, UseContextMenuProps as Props } from './types';
+import {
+  UseContextMenuHook as HookShape,
+  UseContextMenuProps as Props,
+} from './types';
 
-export type { UseContextMenuProps, UseContextMenuHook } from './types'
+export type { UseContextMenuProps, UseContextMenuHook } from './types';
 
 export function useContextMenu<
   T extends HTMLElement = HTMLElement,
@@ -23,9 +31,7 @@ export function useContextMenu<
   const selectableRef = useRef<I[]>([]);
 
   const [
-    {
-      collectedData, style, isVisible, coordinates, selectedIndex,
-    },
+    { collectedData, style, isVisible, coordinates, selectedIndex },
     dispatch,
   ] = useReducer(contextMenuReducer, initialState);
   const isVisibleRef = useRef<boolean>(false);
@@ -61,9 +67,9 @@ export function useContextMenu<
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent | TouchEvent): void => {
       if (
-        isVisibleRef.current
-        && menuRef.current
-        && !menuRef.current.contains(e.target as HTMLElement)
+        isVisibleRef.current &&
+        menuRef.current &&
+        !menuRef.current.contains(e.target as HTMLElement)
       ) {
         hideMenu();
         document.removeEventListener('mousedown', handleOutsideClick);
@@ -136,7 +142,9 @@ export function useContextMenu<
 
   useLayoutEffect(() => {
     if (isVisible) {
-      const rect = menuRef.current!.getBoundingClientRect();
+      if (!menuRef.current) return;
+
+      const rect = menuRef.current.getBoundingClientRect();
       const { top, left } = rtl
         ? getRTLMenuPosition(rect, coordinates)
         : getMenuPosition(rect, coordinates);
