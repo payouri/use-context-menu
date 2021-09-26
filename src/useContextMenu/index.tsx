@@ -140,7 +140,8 @@ export function useContextMenu<
     hideOnScroll,
   ]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    console.log(menuRef.current);
     if (isVisible) {
       if (!menuRef.current) return;
 
